@@ -1,44 +1,28 @@
 import flet as ft
 
-name = "BottomAppBar Example"
-
-
 def main(page: ft.Page):
-    class Example(ft.Column):
-        def __init__(self):
-            super().__init__()
-            self.bottom_app_bar = ft.BottomAppBar(
-                bgcolor=ft.colors.BLUE,
-                shape=ft.NotchShape.CIRCULAR,
-                content=ft.Row(
-                    controls=[
-                        ft.IconButton(icon=ft.icons.MENU, icon_color=ft.colors.WHITE),
-                        ft.Container(expand=True),
-                        ft.IconButton(icon=ft.icons.SEARCH, icon_color=ft.colors.WHITE),
-                        ft.IconButton(
-                            icon=ft.icons.FAVORITE, icon_color=ft.colors.WHITE
-                        ),
-                    ]
-                ),
-            )
+    page.title = "Flet counter example"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-            self.controls = [
-                ft.ElevatedButton(
-                    "Show BottomAppBar", on_click=self.show_bottom_app_bar
-                ),
-            ]
+    txt_number = ft.TextField(value="0", text_align=ft.TextAlign.RIGHT, width=100)
 
-        async def show_bottom_app_bar(self, e):
-            e.control.page.bottom_appbar = self.bottom_app_bar
-            await e.control.page.update_async()
+    def minus_click(e):
+        txt_number.value = str(int(txt_number.value) - 1)
+        page.update()
 
-        # happens when example is removed from the page (when user chooses different control group on the navigation rail)
-        async def will_unmount_async(self):
-            self.page.bottom_appbar = None
-            await self.page.update_async()
+    def plus_click(e):
+        txt_number.value = str(int(txt_number.value) + 1)
+        page.update()
 
-    bottom_app_bar_example = Example()
+    page.add(
+        ft.Row(
+            [
+                ft.IconButton(ft.icons.REMOVE, on_click=minus_click),
+                txt_number,
+                ft.IconButton(ft.icons.ADD, on_click=plus_click),
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+        )
+    )
 
-    return bottom_app_bar_example
-
-ft.app(target=main)
+ft.app(target=main, view=ft.AppView.WEB_BROWSER)
