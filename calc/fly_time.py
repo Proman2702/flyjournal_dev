@@ -1,7 +1,9 @@
 import requests
 import airportsdata
 import datetime as dt
-airports = airportsdata.load('IATA')
+
+
+airports = airportsdata.load("IATA")
 
 # Подсказка #
 
@@ -76,7 +78,7 @@ class TimeCalculation:
         date = date_formation(date)
 
         r = requests.get(f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={date}")
-        #print(r.json())
+        # print(r.json())
         snr = time_formation(r.json()['results']['sunrise'])
         sns = time_formation(r.json()['results']['sunset'])
 
@@ -110,7 +112,10 @@ class TimeCalculation:
 
 
 class TimeResult(TimeCalculation):
-    def __init__(self, departure, arrival, d, a, date):
+    def __init__(self, departure, arrival, d, a, date, code):
+
+        global airports
+        airports = airportsdata.load(code)
 
         # список восход/закат пункта вылета
         self.snr1, self.sns1 = self.time_rewrite(self.get_snr_and_sns(departure, date), List=True)

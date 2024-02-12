@@ -92,13 +92,13 @@ class Data_Menu(main.Main):
         day_time = self.time_absolute(" ".join(map(str, [day_time.seconds // 3600, day_time.seconds // 60 % 60])))
         night_time = self.time_absolute(" ".join(map(str, [night_time.seconds // 3600, night_time.seconds // 60 % 60])))
 
-        data_filled = {"profile": self.profile,  # a
-                       "date": self.date,  # b
-                       "number": num,  # c
-                       "plane_number": plane,  # d
-                       "flight": way,  # e
-                       "place_departure": departure_place,  # f
-                       "place_arrival": arrival_place,  # g
+        data_filled = {"profile": self.profile,  # профиль
+                       "date": self.date,  # дата
+                       "number": num,  # номер (в день до 5)
+                       "plane_number": plane,  # номер самолета
+                       "flight": way,  # номер рейса
+                       "place_departure": departure_place,  # место отправления
+                       "place_arrival": arrival_place,  # место прибытия
                        "place_arrival2": '',  # запасной (неактивный/активный)
                        "time_on": '',  # время включения двигателей (ДЛЯ РАСЧЕТА)
                        "time_off": '',  # время выключения двигателей (ДЛЯ РАСЧЕТА)

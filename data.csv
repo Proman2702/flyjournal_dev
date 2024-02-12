@@ -1,7 +1,0 @@
-,date,number,plane_number,flight,place_departure,place_arrival,place_arrival2,time_on,time_off,time_departure,time_arrival,time_PVP,time_PPP,ETD,ETA,time_all,time_air,time_day,time_night,time_PVP_PPP_all,ETD_ETA_all,profile
-0,2024 1 6,1,777,uz988,VKO,TJM,,,,10 00,13 00,,,,,3.0,,2.27,0.72,,,boeing
-1,2024 1 6,2,777,uz998,VKO,KZN,,,,12 00,16 00,,,,,4.0,,0.88,3.1,,,boeing
-2,2024 1 6,3,777,uw232,VKO,TJM,,,,12 00,19 00,,,,,7.0,,0.27,6.72,,,boeing
-3,2024 1 6,1,UZBEK,123,DYU,TAS,,,,9 00,13 00,,,,,4.0,,3.23,0.75,,,airbus
-4,2024 1 5,1,231,uiu,TJM,SVO,,,,12 00,17 00,,,,,5.0,,0.22,4.77,,,boeing
-5,2024 1 6,4,837,ehhe,TJM,VKO,,,,19 00,23 00,,,,,4.0,,0.0,4.0,,,boeing
