@@ -5,18 +5,14 @@ import flyapp
 import calc.time_parser as parser
 
 
+
 class Main_Menu(ft.UserControl):
     def __init__(self):
         super().__init__()
         self.app = flyapp.FlyApp()
         self.profile = open('data/current.txt').readline()  # название профиля
         self.profiles = pd.read_csv("profiles.csv")  # CSV профилей
-        #self.data = pd.read_csv("data.csv")  # CSV данных
-        self.data = pd.DataFrame({"date": ['02 12 2023', '01 01 2024', '02 01 2024', '07 01 2024'],
-        "time_night": ['2:00:00', '1:30:00', '0:20:00', '1:00:00'],
-        'time_day': ['2:00:00', '1:30:00', '0:20:00', '1:00:00'],
-        "time_all": ['4:00:00', '3:00:00', '0:40:00', '2:00:00'],
-        "profile": ['uz', 'uz', 'uz', 'uz']})
+        self.data = pd.read_csv("data.csv")  # CSV данных
         self.date = " ".join(map(str, [datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year]))
         self.date_vis = self.date_vision(self.date)
         self.profile_ind = self.profiles.index[self.profiles['profile_name'] == self.profile][0]  # индекс строки с инфой о профиле
@@ -70,7 +66,7 @@ class Main_Menu(ft.UserControl):
                             alignment=ft.alignment.center,
                             bgcolor=self.app.white,
                             border_radius=30,
-                            offset=ft.Offset(0.0, 0.0)
+                            offset=ft.Offset(0.1, 0.0)
                         ),
                         ft.Container(
                             ft.Image(
@@ -84,10 +80,10 @@ class Main_Menu(ft.UserControl):
                             alignment=ft.alignment.center,
                             bgcolor=self.app.white,
                             border_radius=30,
-                            offset=ft.Offset(-0.3,0.0),
+                            offset=ft.Offset(0.1,0.0),
                             on_click=lambda _: self.date_picker.pick_date(),
                         )
-                    ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER, spacing=0,offset=ft.Offset(0.05,0.5)
+                    ], alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER, spacing=0,offset=ft.Offset(0.0,0.5)
                 ),
                 ft.Container(  # ГЛАВНЫЙ КОНТЕЙНЕР
                     content=ft.Column(
@@ -107,13 +103,13 @@ class Main_Menu(ft.UserControl):
                                                 ft.Column(
                                                     [
                                                         ft.Text('Общее время', width=105, color=self.app.dark_color, size=15, weight=ft.FontWeight.W_700),
-                                                        ft.Text(f'{int(self.parsing(period="x", t="all")[0])+int(self.profiles.at[self.profile_ind, "add_all"])}', width=80, color=self.app.extra_color, size=17, weight=ft.FontWeight.W_700),
+                                                        ft.Text(f'{int((self.parsing(period="x", t="all")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_all"])}', width=80, color=self.app.extra_color, size=17, weight=ft.FontWeight.W_700),
                                                     ], spacing=5, alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.START, offset=ft.Offset(-0.05,-0.05)
                                                 ),
                                                 ft.Column(
                                                     [
-                                                        ft.Text(f'{int(self.parsing(period="x", t="night")[0])+int(self.profiles.at[self.profile_ind, "add_night"])}🌙', width=60, color=self.app.extra_color,size=15, weight=ft.FontWeight.W_700, text_align=ft.TextAlign.END),
-                                                        ft.Text(f'{int(self.parsing(period="x", t="day")[0])+int(self.profiles.at[self.profile_ind, "add_day"])}🔆', width=60, color=self.app.extra_color,size=15, weight=ft.FontWeight.W_700, text_align=ft.TextAlign.END),  # ЗАМЕНИТЬ
+                                                        ft.Text(f'{int((self.parsing(period="x", t="night")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_night"])}🌙', width=60, color=self.app.extra_color,size=15, weight=ft.FontWeight.W_700, text_align=ft.TextAlign.END),
+                                                        ft.Text(f'{int((self.parsing(period="x", t="day")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_day"])}🔆', width=60, color=self.app.extra_color,size=15, weight=ft.FontWeight.W_700, text_align=ft.TextAlign.END),  # ЗАМЕНИТЬ
                                                     ], spacing=5, alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.END,offset=ft.Offset(0.15, -0.05)
                                                 ),
                                             ], spacing=0, alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER
@@ -440,6 +436,7 @@ class Main_Menu(ft.UserControl):
             alignment=ft.MainAxisAlignment.CENTER
         )
 
+    # перезапись даты
     def date_vision(self, t):
         d = t.split(" ")[0]
         m = t.split(" ")[1]
@@ -452,13 +449,17 @@ class Main_Menu(ft.UserControl):
 
         return f"{d}.{m}.{y}"
 
+    # парсер данных
     def parsing(self, period, t):
         result = 0
         if t == 'all':
             result = parser.Calc(profile=self.profile,csv=self.data, date=self.date, period=period).counter()[0]
+
             if str(result[1]) == '0':
                 result[1] = '00'
             result = ':'.join(list(map(str, [result[0], result[1]])))
+            #if period == 'x':
+                #print(f'ОБЩЕЕ ВРЕМЯ {result}')
         if t == 'day':
             result = parser.Calc(profile=self.profile,csv=self.data, date=self.date, period=period).counter()[1]
             if str(result[1]) == '0':
@@ -471,9 +472,9 @@ class Main_Menu(ft.UserControl):
             result = ':'.join(list(map(str, [result[0], result[1]])))
         if t == 'count':
             result = parser.Calc(profile=self.profile,csv=self.data, date=self.date, period=period).counter()[3]
-
         return result
 
+    # изменение окончаний
     def word_ending(self, num):
         num = int(num)
         if 10 <= num % 100 <= 19:
@@ -485,6 +486,7 @@ class Main_Menu(ft.UserControl):
         else:
             return 'ов'
 
+    # перевод времени в float
     def float_time(self, t):
         h = float(t.split(":")[0])
         m = float(t.split(":")[1])
@@ -492,6 +494,8 @@ class Main_Menu(ft.UserControl):
         m = m / 60
 
         return f'{h+m:.1f}'
+
+    # при смене даты
     def change_date(self, e):
         # page.add.controls[1].controls[...] - ряды главного контейнера
         self.main_container = self.pageadd.controls[1].content.controls
@@ -501,9 +505,9 @@ class Main_Menu(ft.UserControl):
         self.pageadd.controls[0].controls[0].content.value = self.date_vis
 
         #Контейнер с общим временем
-        self.main_container[1].controls[0].content.controls[0].controls[1].value = f'{int(self.parsing(period="x", t="all")[0])+int(self.profiles.at[self.profile_ind, "add_all"])}' # всего общего времени
-        self.main_container[1].controls[0].content.controls[1].controls[0].value = f'{int(self.parsing(period="x", t="night")[0])+int(self.profiles.at[self.profile_ind, "add_night"])}🌙' # всего ночного времени
-        self.main_container[1].controls[0].content.controls[1].controls[1].value = f'{int(self.parsing(period="x", t="day")[0])+int(self.profiles.at[self.profile_ind, "add_day"])}🔆' # всего дневного времени
+        self.main_container[1].controls[0].content.controls[0].controls[1].value = f'{int((self.parsing(period="x", t="all")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_all"])}' # всего общего времени
+        self.main_container[1].controls[0].content.controls[1].controls[0].value = f'{int((self.parsing(period="x", t="night")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_night"])}🌙' # всего ночного времени
+        self.main_container[1].controls[0].content.controls[1].controls[1].value = f'{int((self.parsing(period="x", t="day")).split(":")[0])+int(self.profiles.at[self.profile_ind, "add_day"])}🔆' # всего дневного времени
         # Контейнер с общими полетами
         self.main_container[1].controls[1].content.controls[1].value = f'{self.parsing(period="x", t="count")}' # всего полетов
         # Контейнер с дневными данными

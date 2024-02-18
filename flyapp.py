@@ -10,4 +10,5 @@ class FlyApp:
         self.error_color = '#d77f7f'
         self.title = '<Name>'
         self.version = 'v0.0'
+        self.grey = '#eeeeee'
 

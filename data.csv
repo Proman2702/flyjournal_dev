@@ -1,0 +1,6 @@
+profile,date,number,plane_number,flight,place_departure,place_arrival,place_arrival2,time_on,time_off,time_departure,time_arrival,time_PVP,time_PPP,ETD,ETA,time_all,time_air,time_day,time_night,time_PVP_PPP_all,ETD_ETA_all
+FEFE,17 2 2024,2,213,123,IST,VKO,,21 00,03 00,21 00,03 00,,,21 00,03 00,06:00:00,06:00:00,00:00:00,06:00:00,,06:00:00
+FEFE,17 2 2024,1,234,234,KZN,SVO,,12 00,15 00,12 00,15 00,,,12 00,15 00,03:00:00,03:00:00,02:15:00,00:44:00,,03:00:00
+FEFE,17 2 2024,3,RA 73226,112,LED,VKO,,12 00,13 00,12 10,13 10,,,12 00,13 00,01:00:00,01:00:00,01:00:00,00:00:00,,01:00:00
+FEFE,10 1 2024,1,е4,345,VKO,KZN,,12 00,16 00,12 00,16 00,,,12 00,16 00,04:00:00,04:00:00,00:59:00,03:00:00,,04:00:00
+FEFE,31 1 2024,1,tredt,erter,IST,TJM,,01 00,05 00,01 30,04 30,,,01 00,05 00,04:00:00,03:00:00,00:32:00,03:27:00,,04:00:00

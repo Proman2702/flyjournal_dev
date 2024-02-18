@@ -164,7 +164,7 @@ class Start(ft.UserControl):
                             width=50,
                             height=50,
                         ),
-                        bgcolor=self.app.extra_color,
+                        bgcolor=self.app.light_color,
                         width=60,
                         height=60,
                         border_radius=30,
@@ -197,7 +197,7 @@ class Start(ft.UserControl):
                     offset=ft.Offset(0.15, -0.2)
                 ),
                 ft.Container(
-                    ft.Column(
+                    content=ft.Column(
                         [
                             ft.Container(
                                 content=ft.Row(

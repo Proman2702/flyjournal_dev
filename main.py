@@ -43,13 +43,19 @@ def main(page: ft.Page):
     page.theme = ft.Theme(color_scheme_seed="blue")
     page.theme = ft.Theme(color_scheme=ft.ColorScheme(outline="white"))
 
+
+
+
+
     page.title = ''
     page.bgcolor = '#2a2253'
+
 
     page.window_width = 400
     page.window_height = 800
     page.scroll = True
     page.tracemalloc = True
+
 
     deny = ft.BottomSheet(open=False)
     page.overlay.append(deny)
@@ -191,27 +197,29 @@ def main(page: ft.Page):
         prof = menu.profile.Start()
         page.overlay.append(prof.bs); page.overlay.append(prof.ds); page.overlay.append(prof.es);
 
+
+
         page.views.append(
-            ft.View(
-                "/",
-                [
-                    prof.bar,
-                    prof,
-                    ft.ElevatedButton(
-                        content=ft.Text(value="Войти", color='white', size=20),
-                        bgcolor='#6bb4d6',
-                        elevation=6,
-                        width=400 - 200,
-                        height=50,
-                        offset=ft.Offset(0, -1.6),
-                        on_click=open_main
-                    )
-                ],
-                bgcolor=page.bgcolor,
-                vertical_alignment=ft.MainAxisAlignment.CENTER,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                scroll=True
-            )
+                ft.View(
+                    "/",
+                    [
+                        prof.bar,
+                        prof,
+                        ft.ElevatedButton(
+                            content=ft.Text(value="Войти", color='white', size=20),
+                            bgcolor='#6bb4d6',
+                            elevation=6,
+                            width=400 - 200,
+                            height=50,
+                            offset=ft.Offset(0, -1.6),
+                            on_click=open_main
+                        )
+                    ],
+                    bgcolor=page.bgcolor,
+                    vertical_alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    scroll=True
+                )
         )
         if page.route == "/main":  # главное меню
             page.views.clear()
@@ -243,6 +251,8 @@ def main(page: ft.Page):
             page.views.clear()
             sett = menu.settings.Settings()
             sett.menubar.title.controls.append(setting_out)
+            page.overlay.append(sett.choose)
+            page.overlay.append(sett.bs)
             page.views.append(
                 ft.View(
                     "/settings",
@@ -266,6 +276,8 @@ def main(page: ft.Page):
             mainm.menubar.title.controls.append(fly_out)
             flym = menu.fly.Fly_Menu()
             page.overlay.append(flym.date_picker)
+            page.overlay.append(flym.fill_menu)
+            page.overlay.append(flym.bs)
 
             page.views.append(
                 ft.View(
@@ -297,9 +309,10 @@ def main(page: ft.Page):
 
 
 
+
 ft.app(target=main)
 
 
-# a = fly_time.TimeResult('IST', 'KZN', '13 05', '17 35')
+
 
 

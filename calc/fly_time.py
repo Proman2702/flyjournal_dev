@@ -30,7 +30,7 @@ TimeResult(1, 2, 3, 4, 5)
 2 - 3х-значный код аэропорта посадки (IATA)
 3 - время (ЧАСЫ МИНУТЫ через пробел) вылета
 4 - время (ЧАСЫ МИНУТЫ через пробел) посадки
-5 - дата (ГОД МЕСЯЦ ДЕНЬ через пробел)
+5 - дата (ДЕНЬ МЕСЯЦ ГОД через пробел)
 '''
 
 '''
@@ -58,6 +58,7 @@ class TimeCalculation:
     @staticmethod
     def get_snr_and_sns(dest, date):
 
+        print('<date>', date)
         def time_formation(t):
             tmp = t.split(":")
             if t[-1:-3:-1] == 'MP':
@@ -71,14 +72,19 @@ class TimeCalculation:
             return t
 
         def date_formation(d):
-            tmp = d.replace(" ", '-')
+            d = d.split(' ')
+            d = d[::-1]
+            tmp = "-".join(d)
             return tmp
 
         lat, lon = airports[dest]['lat'], airports[dest]['lon']
+        print('<date> lat and lon got!')
+
         date = date_formation(date)
+        print(date)
 
         r = requests.get(f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={date}")
-        # print(r.json())
+        print(r.json())
         snr = time_formation(r.json()['results']['sunrise'])
         sns = time_formation(r.json()['results']['sunset'])
 
@@ -114,26 +120,41 @@ class TimeCalculation:
 class TimeResult(TimeCalculation):
     def __init__(self, departure, arrival, d, a, date, code):
 
+        print('<init> join')
         global airports
         airports = airportsdata.load(code)
+
+        print('<init> airports loaded')
+
+
 
         # список восход/закат пункта вылета
         self.snr1, self.sns1 = self.time_rewrite(self.get_snr_and_sns(departure, date), List=True)
         # список восход/закат пункта прилета
         self.snr2, self.sns2 = self.time_rewrite(self.get_snr_and_sns(arrival, date), List=True)
 
+        print('<init> sns and snr got')
+
         # время вылета
         self.d = self.time_rewrite(d, List=False)
         # время прилета
         self.a = self.time_rewrite(a, List=False)
+
+        print('<init> time rewrite')
         # средний восход
         self.mid_snr = self.time_mid(self.snr1, self.snr2)
         # средний закат
         self.mid_sns = self.time_mid(self.sns1, self.sns2)
+
+        print('<init> mid snr and snr got')
         # общее время полета
         self.all_time = self.time_summary(self.d, self.a)
 
+        print('<init> summary got')
+
         self.night_time, self.day_time = self.time_logic()
+
+        print('<init> done!')
 
     def time_logic(self):
         res_night = dt.timedelta()

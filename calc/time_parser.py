@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 
 
+
 # Функция возвращает массив
 class Calc:
 
@@ -31,7 +32,9 @@ class Calc:
             self.start = self.end - dt.timedelta(days=365)
 
         if self.period == 'x':
-            self.start = self.end - dt.timedelta(days=365*3)
+            self.end = dt.date.today()
+
+            self.start = self.end - dt.timedelta(days=365*5)
 
         self.start = "-".join(list(map(str, [self.start.day, self.start.month, self.start.year]))[::-1])
         self.end1 = "-".join(list(map(str, [self.end.day, self.end.month, self.end.year]))[::-1])

@@ -43,8 +43,6 @@ class Parsing:
 
 
 
-
-
     def main(self):
         if self.mode == 'delay':
             df = pd.DataFrame(
@@ -56,30 +54,38 @@ class Parsing:
 
             save = pd.read_csv('buffer.csv')
             save = save._append(self.data, ignore_index=True)
-            save.to_csv('buffer.csv', sep=',')
+            save.to_csv('buffer.csv', sep=',', index=False)
             print('сохранено')
-            return save
+            return 1, save
 
         if self.mode == 'get':
+            self.big_data['number'] = self.big_data['number'].astype(str)
 
             data = self.big_data[(self.big_data['profile'] == self.profile) &
                                  (self.big_data['number'] == self.num) &
                                  (self.big_data['date'] == self.date)]
 
+
             if len(data) == 0:
                 data = pd.read_csv('buffer.csv')
-                data = data[(data['profile'] == self.profile) &
-                            (data['number'] == self.num) &
-                            (data['date'] == self.date)]
+
+                try:
+                    data['number'] = data['number'].astype(str)
+                    data = data[(data['profile'] == self.profile) &
+                                (data['number'] == self.num) &
+                                (data['date'] == self.date)]
+                except:
+                    return 0, ''
+
                 if len(data) == 0:
-                    print('невозможно получить')
-                    return 0
+                    return 0, ''
                 else:
-                    return data
+                    print('получено из буфера')
+                    return 2, data
 
             else:
                 print('Получено')
-                return data
+                return 1, data
 
         if self.mode == 'delete':
             try:
@@ -87,11 +93,13 @@ class Parsing:
                                                                (self.big_data['number'] == self.num) &
                                                                (self.big_data['date'] == self.date)][0])
                                                                .reset_index(drop=True))
-                self.big_data.to_csv("data.csv", sep=',')
+                self.big_data.to_csv("data.csv", sep=',', index=False)
                 print('deleted')
+                return 1, self.big_data
             except:
                 print('not found')
-                return 0
+                return 0, ''
+
         if self.mode == 'save':
             try:
                 self.big_data.loc[self.big_data[(self.big_data['profile'] == self.profile) &
@@ -101,5 +109,4 @@ class Parsing:
             except:
                 self.big_data = self.big_data._append(self.data, ignore_index=True)
                 print('saved')
-        else:
-            raise RuntimeError('Такого режима не существует!')
+

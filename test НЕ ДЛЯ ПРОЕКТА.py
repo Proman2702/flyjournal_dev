@@ -2,25 +2,26 @@ import pandas as pd
 import datetime as dt
 import calc.time_parser
 import calc.data_parser
+import calc.fly_time
 from itertools import permutations, product
 
 
-data_filled = {"profile": 1,  # профиль
-                       "date": 1,  # дата
+data_filled = {"profile": 'uz',  # профиль
+                       "date": '1 02 2024',  # дата
                        "number": 1,  # номер (в день до 5)
-                       "plane_number": 0,  # номер самолета
-                       "flight": 1,  # номер рейса
-                       "place_departure": 0,  # место отправления
-                       "place_arrival": 0,  # место прибытия
+                       "plane_number": 'ffdss',  # номер самолета
+                       "flight": 'dsf',  # номер рейса
+                       "place_departure": 'VKO',  # место отправления
+                       "place_arrival": 'TJM',  # место прибытия
                        "place_arrival2": '',  # запасной (неактивный/активный)
-                       "time_on": '',  # время включения двигателей (ДЛЯ РАСЧЕТА)
-                       "time_off": '',  # время выключения двигателей (ДЛЯ РАСЧЕТА)
-                       "time_departure": 0,  # время отрыва колес
-                       "time_arrival": 0,  # время приземления
+                       "time_on": '12:00:00',  # время включения двигателей (ДЛЯ РАСЧЕТА)
+                       "time_off": '17:00:00',  # время выключения двигателей (ДЛЯ РАСЧЕТА)
+                       "time_departure": '12:20:00',  # время отрыва колес
+                       "time_arrival": '16:40:00',  # время приземления
                        "time_PVP": '',  # время (неактивный/активный)
                        "time_PPP": '',  # время (неактивный/активный)
-                       "ETD": '',  # во сколько должны были взлететь
-                       "ETA": '',  # во сколько должны были сесть
+                       "ETD": '12:00:00',  # во сколько должны были взлететь
+                       "ETA": '17:00:00', # во сколько должны были сесть
                        "time_all": 0,  # общее время от вкл до выкл (ДЛЯ РАСЧЕТА)
                        "time_air": '',  # общее время в воздухе
                        "time_day": 0,  # от общего времени
@@ -28,18 +29,34 @@ data_filled = {"profile": 1,  # профиль
                        "time_PVP_PPP_all": '',  # ничего нет
                        "ETD_ETA_all": ''}  # суммирование etd + eta
 
-csv = pd.DataFrame({"date": ['02 12 2023', '01 01 2024', '02 01 2024', '07 01 2024'],
-                    "time_night": ['2:00:00', '1:30:00', '0:20:00', '1:00:00'],
-                    'time_day': ['2:00:00', '1:30:00', '0:20:00', '1:00:00'],
-                    "time_all": ['4:00:00', '3:00:00', '0:40:00', '2:00:00'],
-                    "profile": ['uz', 'uz', 'uz', 'uz'],
-                    "number": ['1', '0', '2', '2']})
 
 
-parser = calc.data_parser.Parsing(mode='get', big_data=csv, date='02 01 2024', data=data_filled, num='2', profile='uz').main()
+#parser = calc.data_parser.Parsing(mode='get', big_data=csv, date='02 01 2024', data=data_filled, num='2', profile='uz').main()
+
+def time_vision(t):
+    h = t.split(" ")[0]
+    m = t.split(" ")[1]
+    s = '00'
+
+    if len(h) == 1:
+        h = "0" + h
+    if len(m) == 1:
+        m = "0" + m
+
+    return f"{h}:{m}:{s}"
 
 
-print(parser)
+def date_formation(d):
+    d = d.split(' ')
+    d = d[::-1]
+    tmp = " ".join(d)
+    return tmp
+
+
+print(date_formation('12 05 2020'))
+
+#print(parser)
+
 
 
 
