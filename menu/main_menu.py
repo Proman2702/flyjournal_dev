@@ -70,7 +70,7 @@ class Main_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='https://i.imgur.com/dNiaTTh.png',
+                                src='img/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0,0.0)

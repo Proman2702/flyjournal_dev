@@ -228,7 +228,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='https://cdn-icons-png.flaticon.com/512/6704/6704979.png',
+                                                    src='img/blue_points.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -261,7 +261,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='https://cdn-icons-png.flaticon.com/512/11497/11497200.png',
+                                                    src='img/save.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -301,7 +301,7 @@ class Start(ft.UserControl):
                                                         size=13, width=140, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='https://cdn-icons-png.flaticon.com/512/1276/1276444.png',
+                                                    src='img/bin.png',
                                                     width=30,
                                                     height=30,
                                                     offset=ft.Offset(0, -0.3)
@@ -334,7 +334,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='https://cdn-icons-png.flaticon.com/512/6329/6329169.png',
+                                                    src='img/add.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)

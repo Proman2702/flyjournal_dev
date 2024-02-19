@@ -90,7 +90,7 @@ def main(page: ft.Page):
                 ft.Text("Еще вылеты", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=12,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='https://cdn-icons-png.flaticon.com/512/6329/6329169.png',
+                    src='img/add.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -117,7 +117,7 @@ def main(page: ft.Page):
                 ft.Text("Смена профиля", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=11,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='https://cdn-icons-png.flaticon.com/512/8188/8188360.png',
+                    src='img/profile.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -141,7 +141,7 @@ def main(page: ft.Page):
 
     setting = ft.Container(  # кнопка настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='https://i.imgur.com/G2XTeE2.png',
+                            src='img/settings.png',
                             width=40,
                             height=40,
                         ),
@@ -157,7 +157,7 @@ def main(page: ft.Page):
 
     setting_out = ft.Container(  # кнопка выхода из настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='https://cdn-icons-png.flaticon.com/512/507/507257.png',
+                            src='img/back.png',
                             width=30,
                             height=30,
                         ),
@@ -173,7 +173,7 @@ def main(page: ft.Page):
 
     fly_out = ft.Container(  # кнопка выхода из меню полетов (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
         ft.Image(
-            src='https://cdn-icons-png.flaticon.com/512/507/507257.png',
+            src='img/back.png',
             width=30,
             height=30,
         ),

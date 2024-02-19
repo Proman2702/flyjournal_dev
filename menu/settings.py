@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import flyapp
 import calc.time_parser
+import os
 
 class Settings(ft.UserControl):
     def __init__(self):
@@ -243,9 +244,18 @@ class Settings(ft.UserControl):
 
         csv = calc.time_parser.Calc(date=self.date, csv=self.data, period=period, profile=self.profile).parser()
         csv['date'] = csv['date'].dt.strftime('%Y-%m-%d')
+
+        csv['time_on'] = csv['time_on'].str.replace(" ", ":") + ':00'
+        csv['time_off'] = csv['time_off'].str.replace(" ", ":") + ':00'
+        csv['time_departure'] = csv['time_departure'].str.replace(" ", ":") + ':00'
+        csv['time_arrival'] = csv['time_arrival'].str.replace(" ", ":") + ':00'
+        csv['ETD'] = csv['ETD'].str.replace(" ", ":") + ':00'
+        csv['ETA'] = csv['ETA'].str.replace(" ", ":") + ':00'
+
+        print(os.path.dirname(os.path.abspath(__file__)))
         csv.to_excel('fly_data.xlsx', index=False)
         self.bs.content = ft.Container(ft.Column([
-            ft.Text("Данные были экспортированы в загрузки"),
+            ft.Text("Данные были экспортированы в папку приложения"),
             ft.ElevatedButton("Закрыть", on_click=self.close_bs),
         ], tight=True, horizontal_alignment=ft.CrossAxisAlignment.CENTER), padding=10)
         self.bs.open = True

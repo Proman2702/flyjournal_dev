@@ -27,7 +27,7 @@ class Fly_Menu(ft.UserControl):
                     ft.Text('Полет №1', color=self.app.dark_color, size=20, weight=ft.FontWeight.W_700, offset=ft.Offset(-0.3,0.0)),
                     ft.Container(
                         ft.Image(
-                            src='https://cdn-icons-png.flaticon.com/512/14090/14090371.png',
+                            src='img/green.png',
                             width=30,
                             height=30
                         ),
@@ -38,7 +38,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='https://cdn-icons-png.flaticon.com/512/9564/9564739.png',
+                            src='img/yellow.png',
                             width=30,
                             height=30
                         ),
@@ -49,7 +49,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='https://cdn-icons-png.flaticon.com/512/6711/6711573.png',
+                            src='img/red.png',
                             width=30,
                             height=30,
                             fit=ft.ImageFit.FILL
@@ -124,7 +124,7 @@ class Fly_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='https://i.imgur.com/dNiaTTh.png',
+                                src='img/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0, 0.0)
@@ -309,7 +309,7 @@ class Fly_Menu(ft.UserControl):
                 )
             else:
                 self.pageadd.controls[1].content.controls[i*2-1].content = ft.Image(
-                                                    src='https://cdn-icons-png.flaticon.com/512/12272/12272514.png',
+                                                    src='img/blue_plus.png',
                                                     width=40,
                                                     height=40
                                                 )

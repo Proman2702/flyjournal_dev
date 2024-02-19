@@ -8,7 +8,7 @@ class FlyApp:
         self.extra_color = '#6bb4d6'  # бирюзовый
         self.test_color = '#5b548f'
         self.error_color = '#d77f7f'
-        self.title = '<Name>'
-        self.version = 'v0.0'
+        self.title = 'FlyJournal'
+        self.version = '1.0'
         self.grey = '#eeeeee'
 
