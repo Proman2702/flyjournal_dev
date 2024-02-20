@@ -1,8 +1,8 @@
 import pandas as pd
 import datetime
 import flet as ft
-import flyapp
-import calc.time_parser as parser
+from assets import flyapp
+import assets.calc.time_parser as parser
 
 
 
@@ -10,9 +10,9 @@ class Main_Menu(ft.UserControl):
     def __init__(self):
         super().__init__()
         self.app = flyapp.FlyApp()
-        self.profile = open('data/current.txt').readline()  # название профиля
-        self.profiles = pd.read_csv("profiles.csv")  # CSV профилей
-        self.data = pd.read_csv("data.csv")  # CSV данных
+        self.profile = open('assets/data/current.txt').readline()  # название профиля
+        self.profiles = pd.read_csv("assets/profiles.csv")  # CSV профилей
+        self.data = pd.read_csv("assets/data.csv")  # CSV данных
         self.date = " ".join(map(str, [datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year]))
         self.date_vis = self.date_vision(self.date)
         self.profile_ind = self.profiles.index[self.profiles['profile_name'] == self.profile][0]  # индекс строки с инфой о профиле
@@ -70,7 +70,7 @@ class Main_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='img/calendar.png',
+                                src='assets/img/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0,0.0)

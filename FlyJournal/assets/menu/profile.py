@@ -1,7 +1,7 @@
 
 import pandas as pd
 import flet as ft
-import flyapp
+from assets import flyapp
 
 
 class Start(ft.UserControl):
@@ -9,7 +9,7 @@ class Start(ft.UserControl):
     def __init__(self):
         super().__init__()
         self.appbar_height = 115
-        self.profile = open('data/current.txt').readline()  # название профиля
+        self.profile = open('assets/data/current.txt').readline()  # название профиля
         self.app = flyapp.FlyApp()  # класс настроек
         self.deleting_prof = ''  # какой профиль удаляется
         self.vis_profile = ft.Text(f"{self.app.version}", color=self.app.dark_color,  # версия приложения
@@ -160,7 +160,7 @@ class Start(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='img/nik.png',
+                            src='assets/img/nik.png',
                             width=50,
                             height=50,
                         ),
@@ -228,7 +228,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='img/blue_points.png',
+                                                    src='assets/img/blue_points.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -261,7 +261,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='img/save.png',
+                                                    src='assets/img/save.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -301,7 +301,7 @@ class Start(ft.UserControl):
                                                         size=13, width=140, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='img/bin.png',
+                                                    src='assets/img/bin.png',
                                                     width=30,
                                                     height=30,
                                                     offset=ft.Offset(0, -0.3)
@@ -334,7 +334,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='img/add.png',
+                                                    src='assets/img/add.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -390,7 +390,7 @@ class Start(ft.UserControl):
 
         self.profile = e.control.content.value
         self.pageadd.controls[2].content.controls[0].content.controls[1].value = self.profile
-        with open("data/current.txt", "w") as file:
+        with open("assets/data/current.txt", "w") as file:
             file.write(self.profile)
         self.ch_menu.open = False
         self.pageadd.update()
@@ -428,7 +428,7 @@ class Start(ft.UserControl):
     def close_ds(self, e):  # закрытие окна предупреждения об удалении профиля
         profiles = pd.read_csv('profiles.csv', dtype=str)
         profiles = profiles.drop(profiles.index[profiles['profile_name'] == self.deleting_prof][0]).reset_index(drop=True)
-        profiles.to_csv("profiles.csv", sep=',', index=False)
+        profiles.to_csv("assets/profiles.csv", sep=',', index=False)
         self.ds.open = False
         self.del_menu.open = False
         self.page.update()
@@ -478,7 +478,7 @@ class Start(ft.UserControl):
         self.page.update()
 
     def fill_scroll_list_chosen(self):
-        profiles = pd.read_csv('profiles.csv')
+        profiles = pd.read_csv('assets/profiles.csv')
         self.scroll_list.controls = []
         for i in list(profiles['profile_name']):  # заполнение профилями список на выбор
             self.scroll_list.controls.append(ft.Row(
@@ -498,7 +498,7 @@ class Start(ft.UserControl):
 
 
     def fill_scroll_list_delete(self):
-        profiles = pd.read_csv('profiles.csv')
+        profiles = pd.read_csv('assets/profiles.csv')
         self.scroll_list.controls = []
         for i in list(profiles['profile_name']):  # заполнение профилями список на удаление
             self.scroll_list.controls.append(ft.Row(
@@ -518,7 +518,7 @@ class Start(ft.UserControl):
 
     def profile_creation_end(self, e):  # Проверка введенных данных
 
-        profiles = pd.read_csv('profiles.csv')
+        profiles = pd.read_csv('assets/profiles.csv')
         error = False
 
         def error_handler(t):
@@ -588,7 +588,7 @@ class Start(ft.UserControl):
                 else:
                     profiles = profiles._append(profile_filled, ignore_index=True)
                     profile = self.a.value
-                    profiles.to_csv("profiles.csv", sep=',', index=False)
+                    profiles.to_csv("assets/profiles.csv", sep=',', index=False)
                     self.page.dialog = self.cr_menu
                     self.cr_menu.open = False
 

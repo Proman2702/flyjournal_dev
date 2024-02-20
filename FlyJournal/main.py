@@ -1,36 +1,36 @@
-import datetime as dt
 import os
 import pandas as pd
 import flet as ft
-import menu.profile
-import menu.main_menu
-import menu.settings
-import menu.fly
-import flyapp
+import assets.menu.profile
+import assets.menu.main_menu
+import assets.menu.settings
+import assets.menu.fly
+from assets import flyapp
+
 
 
 class Main:
 
-    if not os.path.exists("profiles.csv"):
+    if not os.path.exists("assets/profiles.csv"):
         df = pd.DataFrame(
             columns=["profile_name", "fio", "company", "flytime_all", "flytime_day", "flytime_night", "add_all",
                      "add_day", "add_night"]).to_csv(
-            'profiles.csv', index=False)
+            'assets/profiles.csv', index=False)
 
-    if not os.path.exists("data.csv"):
+    if not os.path.exists("assets/data.csv"):
         df2 = pd.DataFrame(
             columns=["profile", "date", "number", "plane_number", "flight", "place_departure", "place_arrival",
                      "place_arrival2",
                      "time_on", "time_off", "time_departure", "time_arrival", "time_PVP", "time_PPP", "ETD", "ETA",
                      "time_all", "time_air", "time_day", "time_night", "time_PVP_PPP_all", "ETD_ETA_all"]).to_csv(
-            'data.csv', index=False)
+            'assets/data.csv', index=False)
 
-    if not os.path.exists("data/current.txt"):
-        with open("data/current.txt", "w") as file:
+    if not os.path.exists("assets/data/current.txt"):
+        with open("assets/data/current.txt", "w") as file:
             file.write("<Не выбрано>")
 
-    if not os.path.exists("data/airport.txt"):
-        with open("data/airport.txt", "w") as file:
+    if not os.path.exists("assets/data/airport.txt"):
+        with open("assets/data/airport.txt", "w") as file:
             file.write("IATA")
 
 def main(page: ft.Page):
@@ -61,10 +61,10 @@ def main(page: ft.Page):
     page.overlay.append(deny)
 
 
-    prof = menu.profile.Start()
-    mainm = menu.main_menu.Main_Menu()
-    sett = menu.settings.Settings()
-    flym = menu.fly.Fly_Menu()
+    prof = assets.menu.profile.Start()
+    mainm = assets.menu.main_menu.Main_Menu()
+    sett = assets.menu.settings.Settings()
+    flym = assets.menu.fly.Fly_Menu()
 
     menu_nav = ()
 
@@ -74,7 +74,7 @@ def main(page: ft.Page):
         page.update()
 
     def open_main(e):  # проверка на выбор профиля и вход в главное меню
-        if open('data/current.txt').readline() == '<Не выбрано>':
+        if open('assets/data/current.txt').readline() == '<Не выбрано>':
             deny.content = ft.Container(ft.Column([
                 ft.Text("Вы не создали ни одного профиля!"),
                 ft.ElevatedButton("Закрыть", on_click=deny_close)],
@@ -90,7 +90,7 @@ def main(page: ft.Page):
                 ft.Text("Еще вылеты", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=12,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='img/add.png',
+                    src='assets/img/blue_plus.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -117,7 +117,7 @@ def main(page: ft.Page):
                 ft.Text("Смена профиля", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=11,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='img/profile.png',
+                    src='assets/img/profile.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -141,7 +141,7 @@ def main(page: ft.Page):
 
     setting = ft.Container(  # кнопка настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='img/settings.png',
+                            src='assets/img/settings.png',
                             width=40,
                             height=40,
                         ),
@@ -157,7 +157,7 @@ def main(page: ft.Page):
 
     setting_out = ft.Container(  # кнопка выхода из настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='img/back.png',
+                            src='assets/img/back.png',
                             width=30,
                             height=30,
                         ),
@@ -173,7 +173,7 @@ def main(page: ft.Page):
 
     fly_out = ft.Container(  # кнопка выхода из меню полетов (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
         ft.Image(
-            src='img/back.png',
+            src='assets/img/back.png',
             width=30,
             height=30,
         ),
@@ -194,7 +194,7 @@ def main(page: ft.Page):
 
     def route_change(route):  # выбор между страницами (сначала меню входа)
         page.views.clear()
-        prof = menu.profile.Start()
+        prof = assets.menu.profile.Start()
         page.overlay.append(prof.bs); page.overlay.append(prof.ds); page.overlay.append(prof.es);
 
 
@@ -223,7 +223,7 @@ def main(page: ft.Page):
         )
         if page.route == "/main":  # главное меню
             page.views.clear()
-            mainm = menu.main_menu.Main_Menu()
+            mainm = assets.menu.main_menu.Main_Menu()
             mainm.menubar.title.controls.append(setting)
 
             mainm.pageadd.controls[1].content.controls[3].controls[1] = fly_add
@@ -249,7 +249,7 @@ def main(page: ft.Page):
             )
         if page.route == "/settings":  # настройки
             page.views.clear()
-            sett = menu.settings.Settings()
+            sett = assets.menu.settings.Settings()
             sett.menubar.title.controls.append(setting_out)
             page.overlay.append(sett.choose)
             page.overlay.append(sett.bs)
@@ -269,12 +269,12 @@ def main(page: ft.Page):
         if page.route == "/fly":  # заполнение рейсов
             page.views.clear()
 
-            mainm = menu.main_menu.Main_Menu()
+            mainm = assets.menu.main_menu.Main_Menu()
             mainm.menubar.title.controls.append(setting)
 
 
             mainm.menubar.title.controls.append(fly_out)
-            flym = menu.fly.Fly_Menu()
+            flym = assets.menu.fly.Fly_Menu()
             page.overlay.append(flym.date_picker)
             page.overlay.append(flym.fill_menu)
             page.overlay.append(flym.bs)
@@ -306,8 +306,6 @@ def main(page: ft.Page):
     page.go(page.route)
 
     page.update()
-
-
 
 
 ft.app(target=main)

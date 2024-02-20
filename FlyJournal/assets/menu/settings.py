@@ -1,8 +1,8 @@
 import flet as ft
 import pandas as pd
 import datetime
-import flyapp
-import calc.time_parser
+from assets import flyapp
+import assets.calc.time_parser
 import os
 
 class Settings(ft.UserControl):
@@ -10,9 +10,9 @@ class Settings(ft.UserControl):
         super().__init__()
         self.appbar_height = 115
         self.app = flyapp.FlyApp()
-        self.code = open('data/airport.txt').readline()
-        self.profile = open('data/current.txt').readline()
-        self.data = pd.read_csv('data.csv')
+        self.code = open('assets/data/airport.txt').readline()
+        self.profile = open('assets/data/current.txt').readline()
+        self.data = pd.read_csv('assets/data.csv')
         self.date = " ".join(map(str, [datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year]))
         self.bs = ft.BottomSheet(open=False)  # всплывающие окна
         self.choose = ft.AlertDialog(
@@ -242,7 +242,7 @@ class Settings(ft.UserControl):
 
     def make_export(self, e, period):
 
-        csv = calc.time_parser.Calc(date=self.date, csv=self.data, period=period, profile=self.profile).parser()
+        csv = assets.calc.time_parser.Calc(date=self.date, csv=self.data, period=period, profile=self.profile).parser()
         csv['date'] = csv['date'].dt.strftime('%Y-%m-%d')
 
         csv['time_on'] = csv['time_on'].str.replace(" ", ":") + ':00'
@@ -253,7 +253,7 @@ class Settings(ft.UserControl):
         csv['ETA'] = csv['ETA'].str.replace(" ", ":") + ':00'
 
         print(os.path.dirname(os.path.abspath(__file__)))
-        csv.to_excel('fly_data.xlsx', index=False)
+        csv.to_excel('assets/fly_data.xlsx', index=False)
         self.bs.content = ft.Container(ft.Column([
             ft.Text("Данные были экспортированы в папку приложения"),
             ft.ElevatedButton("Закрыть", on_click=self.close_bs),
@@ -268,7 +268,7 @@ class Settings(ft.UserControl):
         if self.code == 'IATA':
             self.code = 'ICAO'
             self.pageadd.controls[0].content.controls[1].content = ft.Text(f'Код аэропортов: <{self.code}>', color=self.app.dark_color, size=19,weight=ft.FontWeight.W_600)
-            with open("data/airport.txt", "w") as file:
+            with open("assets/data/airport.txt", "w") as file:
                 file.write(self.code)
             self.pageadd.update()
             self.page.update()
@@ -277,7 +277,7 @@ class Settings(ft.UserControl):
             self.pageadd.controls[0].content.controls[1].content = ft.Text(f'Код аэропортов: <{self.code}>',
                                                                                  color=self.app.dark_color, size=19,
                                                                                  weight=ft.FontWeight.W_600)
-            with open("data/airport.txt", "w") as file:
+            with open("assets/data/airport.txt", "w") as file:
                 file.write(self.code)
             self.pageadd.update()
             self.page.update()

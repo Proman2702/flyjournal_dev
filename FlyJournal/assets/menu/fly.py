@@ -1,22 +1,22 @@
 import pandas as pd
 import flet as ft
 import datetime
-import flyapp
-import calc.data_parser
-import calc.fly_time
+from assets import flyapp
+import assets.calc.data_parser
+import assets.calc.fly_time
 
 class Fly_Menu(ft.UserControl):
     def __init__(self):
         self.last = 0
         super().__init__()
         self.app = flyapp.FlyApp()
-        self.data = pd.read_csv('data.csv')
-        self.profiles = pd.read_csv('profiles.csv')
-        self.profile = open('data/current.txt').readline()
-        self.code = open('data/airport.txt').readline()
+        self.data = pd.read_csv('assets/data.csv')
+        self.profiles = pd.read_csv('assets/profiles.csv')
+        self.profile = open('assets/data/current.txt').readline()
+        self.code = open('assets/data/airport.txt').readline()
         self.date = " ".join(map(str, [datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year]))
         self.date_vis = self.date_vision(self.date)
-        self.calc = calc.fly_time.TimeCalculation()
+        self.calc = assets.calc.fly_time.TimeCalculation()
 
         self.date_picker = ft.DatePicker(on_change=self.change_date,first_date=datetime.datetime(2000, 1, 1),last_date=datetime.datetime.now())
 
@@ -27,7 +27,7 @@ class Fly_Menu(ft.UserControl):
                     ft.Text('Полет №1', color=self.app.dark_color, size=20, weight=ft.FontWeight.W_700, offset=ft.Offset(-0.3,0.0)),
                     ft.Container(
                         ft.Image(
-                            src='img/green.png',
+                            src='assets/img/green.png',
                             width=30,
                             height=30
                         ),
@@ -38,7 +38,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='img/yellow.png',
+                            src='assets/img/yellow.png',
                             width=30,
                             height=30
                         ),
@@ -49,7 +49,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='img/red.png',
+                            src='assets/img/red.png',
                             width=30,
                             height=30,
                             fit=ft.ImageFit.FILL
@@ -124,7 +124,7 @@ class Fly_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='img/calendar.png',
+                                src='assets/img/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0, 0.0)
@@ -255,8 +255,8 @@ class Fly_Menu(ft.UserControl):
     # Заполнение самих полей ввода
     def visual(self):
         for i in range(1, 6):
-            if calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
-                data = calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[1]
+            if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+                data = assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[1]
                 print(data["place_departure"].iat[0])
                 self.pageadd.controls[1].content.controls[i * 2 - 1].content = ft.Row(
                     [
@@ -272,7 +272,7 @@ class Fly_Menu(ft.UserControl):
                         ft.Column(
                             [
                                 ft.Image(
-                                    src='img/duga1.png',
+                                    src='assets/img/duga1.png',
                                     width=180
                                 ),
                                 ft.Row(
@@ -304,12 +304,12 @@ class Fly_Menu(ft.UserControl):
                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                     spacing=10
                 )
-            elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+            elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(i), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
                 self.pageadd.controls[1].content.controls[i * 2 - 1].content = ft.Text("В буфере", color=self.app.extra_color, size=16, weight=ft.FontWeight.W_800
                 )
             else:
                 self.pageadd.controls[1].content.controls[i*2-1].content = ft.Image(
-                                                    src='img/blue_plus.png',
+                                                    src='assets/img/blue_plus.png',
                                                     width=40,
                                                     height=40
                                                 )
@@ -356,9 +356,9 @@ class Fly_Menu(ft.UserControl):
         self.fill_title.controls[3].border_radius = 1
         self.fill_menu.title = self.fill_title
         self.fill_menu.open = True
-        if calc.data_parser.Parsing(big_data=self.data, data='', num=str(1), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+        if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(1), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
             self.set_up('all', '1')
-        elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(1), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+        elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(1), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
             self.set_up('buffer', '1')
         else:
             self.set_up('none', '1')
@@ -373,9 +373,9 @@ class Fly_Menu(ft.UserControl):
         self.fill_title.controls[3].border_radius = 2
         self.fill_menu.title = self.fill_title
         self.fill_menu.open = True
-        if calc.data_parser.Parsing(big_data=self.data, data='', num=str(2), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+        if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(2), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
             self.set_up('all', '2')
-        elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(2), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+        elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(2), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
             self.set_up('buffer', '2')
         else:
             self.set_up('none', '2')
@@ -390,9 +390,9 @@ class Fly_Menu(ft.UserControl):
         self.fill_title.controls[3].border_radius = 3
         self.fill_menu.title = self.fill_title
         self.fill_menu.open = True
-        if calc.data_parser.Parsing(big_data=self.data, data='', num=str(3), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+        if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(3), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
             self.set_up('all', '3')
-        elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(3), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+        elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(3), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
             self.set_up('buffer', '3')
         else:
             self.set_up('none', '3')
@@ -408,9 +408,9 @@ class Fly_Menu(ft.UserControl):
         self.fill_title.controls[3].border_radius = 4
         self.fill_menu.title = self.fill_title
         self.fill_menu.open = True
-        if calc.data_parser.Parsing(big_data=self.data, data='', num=str(4), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+        if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(4), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
             self.set_up('all', '4')
-        elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(4), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+        elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(4), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
             self.set_up('buffer', '4')
         else:
             self.set_up('none', '4')
@@ -425,9 +425,9 @@ class Fly_Menu(ft.UserControl):
         self.fill_title.controls[3].border_radius = 5
         self.fill_menu.title = self.fill_title
         self.fill_menu.open = True
-        if calc.data_parser.Parsing(big_data=self.data, data='', num=str(5), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
+        if assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(5), date=self.date, mode='get', profile=self.profile).main()[0] == 1:
             self.set_up('all', '5')
-        elif calc.data_parser.Parsing(big_data=self.data, data='', num=str(5), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
+        elif assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(5), date=self.date, mode='get', profile=self.profile).main()[0] == 2:
             self.set_up('buffer', '5')
         else:
             self.set_up('none', '5')
@@ -502,8 +502,8 @@ class Fly_Menu(ft.UserControl):
 
         if fill == 'buffer':
             print('entered buffer')
-            data = calc.data_parser.Parsing(mode='get', big_data=self.data, date=self.date, data='', num=str(num),
-                                     profile=self.profile).main()[1]
+            data = assets.calc.data_parser.Parsing(mode='get', big_data=self.data, date=self.date, data='', num=str(num),
+                                                   profile=self.profile).main()[1]
             self.plane.value = data['plane_number'].iat[0]
             self.way.value = data['flight'].iat[0]
             self.departure_place.value = data['place_departure'].iat[0]
@@ -522,8 +522,8 @@ class Fly_Menu(ft.UserControl):
             self.vis_fly_time.value = '<Не рассчитано>'
 
         if fill == 'all':
-            data = calc.data_parser.Parsing(mode='get', big_data=self.data, date=self.date, data='', num=str(num),
-                                     profile=self.profile).main()[1]
+            data = assets.calc.data_parser.Parsing(mode='get', big_data=self.data, date=self.date, data='', num=str(num),
+                                                   profile=self.profile).main()[1]
             print(data['time_all'])
             print('entered all')
             self.plane.value = data['plane_number'].iat[0]
@@ -579,8 +579,8 @@ class Fly_Menu(ft.UserControl):
 
     # закрыть всплывающее окно с удалением данных
     def close_bs_delete(self, e):
-        self.data = calc.data_parser.Parsing(big_data=self.data, data='', num=str(n), date=self.date, mode="delete",
-                                 profile=self.profile).main()[1]
+        self.data = assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(n), date=self.date, mode="delete",
+                                                    profile=self.profile).main()[1]
         self.visual()
         self.pageadd.update()
         self.fill_menu.open = False
@@ -641,8 +641,8 @@ class Fly_Menu(ft.UserControl):
                        "time_night": '',  # от общего времени
                        "time_PVP_PPP_all": '',  # ничего нет
                        "ETD_ETA_all": ''}  # суммирование etd + eta
-        calc.data_parser.Parsing(big_data=self.data, data=data_filled, num=str(num), date=self.date, mode='delay',
-                                     profile=self.profile).main()
+        assets.calc.data_parser.Parsing(big_data=self.data, data=data_filled, num=str(num), date=self.date, mode='delay',
+                                        profile=self.profile).main()
         self.bs.content = ft.Container(ft.Column([
             ft.Text("Данные сохранены в буфер обмена!"),
             ft.ElevatedButton("Закрыть", on_click=self.close_bs),
@@ -671,8 +671,8 @@ class Fly_Menu(ft.UserControl):
                     ft.ElevatedButton("Закрыть", on_click=self.close_bs),
                 ], tight=True, horizontal_alignment=ft.CrossAxisAlignment.CENTER), padding=10)
 
-        d = calc.data_parser.Parsing(big_data=self.data, data='', num=str(num), date=self.date, mode='get',
-                                     profile=self.profile).main()[0]
+        d = assets.calc.data_parser.Parsing(big_data=self.data, data='', num=str(num), date=self.date, mode='get',
+                                            profile=self.profile).main()[0]
 
         if d == 0 or d == 2:
             error_handler('not_found')
@@ -739,15 +739,15 @@ class Fly_Menu(ft.UserControl):
                 print('processed after time_sum')
                 # ---------------------------
                 if self.arrival_place.disabled:
-                    time_calc = calc.fly_time.TimeResult(self.departure_place.value,
-                                                         self.arrival_place2.value,
-                                                         d=self.time_on.value,
-                                                         a=self.time_off.value, date=self.date, code=self.code)
+                    time_calc = assets.calc.fly_time.TimeResult(self.departure_place.value,
+                                                                self.arrival_place2.value,
+                                                                d=self.time_on.value,
+                                                                a=self.time_off.value, date=self.date, code=self.code)
                 else:
-                    time_calc = calc.fly_time.TimeResult(self.departure_place.value,
-                                                         self.arrival_place.value,
-                                                         d=self.time_on.value,
-                                                         a=self.time_off.value, date=self.date, code=self.code)
+                    time_calc = assets.calc.fly_time.TimeResult(self.departure_place.value,
+                                                                self.arrival_place.value,
+                                                                d=self.time_on.value,
+                                                                a=self.time_off.value, date=self.date, code=self.code)
 
                 print('processed after class')
 
@@ -804,8 +804,8 @@ class Fly_Menu(ft.UserControl):
 
                 print('calculated')
 
-                self.profiles.to_csv("profiles.csv", sep=',', index=False)
-                self.data.to_csv("data.csv", sep=',', index=False)
+                self.profiles.to_csv("assets/profiles.csv", sep=',', index=False)
+                self.data.to_csv("assets/data.csv", sep=',', index=False)
                 print('saved')
                 self.visual()
                 self.pageadd.update()

@@ -50,11 +50,11 @@ class Parsing:
                      "place_arrival2",
                      "time_on", "time_off", "time_departure", "time_arrival", "time_PVP", "time_PPP", "ETD", "ETA",
                      "time_all", "time_air", "time_day", "time_night", "time_PVP_PPP_all", "ETD_ETA_all"]).to_csv(
-            'buffer.csv', index=False)
+            'assets/buffer.csv', index=False)
 
-            save = pd.read_csv('buffer.csv')
+            save = pd.read_csv('assets/buffer.csv')
             save = save._append(self.data, ignore_index=True)
-            save.to_csv('buffer.csv', sep=',', index=False)
+            save.to_csv('assets/buffer.csv', sep=',', index=False)
             print('сохранено')
             return 1, save
 
@@ -67,7 +67,7 @@ class Parsing:
 
 
             if len(data) == 0:
-                data = pd.read_csv('buffer.csv')
+                data = pd.read_csv('assets/buffer.csv')
 
                 try:
                     data['number'] = data['number'].astype(str)
@@ -93,7 +93,7 @@ class Parsing:
                                                                (self.big_data['number'] == self.num) &
                                                                (self.big_data['date'] == self.date)][0])
                                                                .reset_index(drop=True))
-                self.big_data.to_csv("data.csv", sep=',', index=False)
+                self.big_data.to_csv("assets/data.csv", sep=',', index=False)
                 print('deleted')
                 return 1, self.big_data
             except:
