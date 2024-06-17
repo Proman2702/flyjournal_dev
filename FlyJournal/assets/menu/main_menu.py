@@ -4,8 +4,6 @@ import flet as ft
 from assets import flyapp
 import assets.calc.time_parser as parser
 
-
-
 class Main_Menu(ft.UserControl):
     def __init__(self):
         super().__init__()
@@ -70,7 +68,7 @@ class Main_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='assets/img/calendar.png',
+                                src='https://i.postimg.cc/5ND6fCYS/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0,0.0)
@@ -424,7 +422,7 @@ class Main_Menu(ft.UserControl):
                         offset=ft.Offset(0.0, 0.005),
 
                     ),
-                    bgcolor=self.app.white,
+                    bgcolor=self.app.dark_color,
                     width=350,
                     height=770,
                     border_radius=30

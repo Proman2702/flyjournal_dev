@@ -27,7 +27,7 @@ class Fly_Menu(ft.UserControl):
                     ft.Text('Полет №1', color=self.app.dark_color, size=20, weight=ft.FontWeight.W_700, offset=ft.Offset(-0.3,0.0)),
                     ft.Container(
                         ft.Image(
-                            src='assets/img/green.png',
+                            src='https://i.postimg.cc/YqPmjPVg/green.png',
                             width=30,
                             height=30
                         ),
@@ -38,7 +38,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='assets/img/yellow.png',
+                            src='https://i.postimg.cc/VvV5rS71/yellow.png',
                             width=30,
                             height=30
                         ),
@@ -49,7 +49,7 @@ class Fly_Menu(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='assets/img/red.png',
+                            src='https://i.postimg.cc/hjMXnZTX/red.png',
                             width=30,
                             height=30,
                             fit=ft.ImageFit.FILL
@@ -124,7 +124,7 @@ class Fly_Menu(ft.UserControl):
                         ),
                         ft.Container(
                             ft.Image(
-                                src='assets/img/calendar.png',
+                                src='https://i.postimg.cc/5ND6fCYS/calendar.png',
                                 width=40,
                                 height=40,
                                 offset=ft.Offset(0.0, 0.0)
@@ -272,7 +272,7 @@ class Fly_Menu(ft.UserControl):
                         ft.Column(
                             [
                                 ft.Image(
-                                    src='assets/img/duga1.png',
+                                    src='https://i.postimg.cc/sxXvgP4w/duga1.png',
                                     width=180
                                 ),
                                 ft.Row(
@@ -309,7 +309,7 @@ class Fly_Menu(ft.UserControl):
                 )
             else:
                 self.pageadd.controls[1].content.controls[i*2-1].content = ft.Image(
-                                                    src='assets/img/blue_plus.png',
+                                                    src='https://i.postimg.cc/zBqy9Ybm/blue-plus.png',
                                                     width=40,
                                                     height=40
                                                 )

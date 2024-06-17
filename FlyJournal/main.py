@@ -34,7 +34,6 @@ class Main:
             file.write("IATA")
 
 def main(page: ft.Page):
-    main = Main()
     app = flyapp.FlyApp()
 
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -42,10 +41,6 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = ft.Theme(color_scheme_seed="blue")
     page.theme = ft.Theme(color_scheme=ft.ColorScheme(outline="white"))
-
-
-
-
 
     page.title = ''
     page.bgcolor = '#2a2253'
@@ -90,7 +85,7 @@ def main(page: ft.Page):
                 ft.Text("Еще вылеты", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=12,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='assets/img/blue_plus.png',
+                    src='https://i.postimg.cc/zBqy9Ybm/blue-plus.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -117,7 +112,7 @@ def main(page: ft.Page):
                 ft.Text("Смена профиля", width=90, color=app.dark_color, weight=ft.FontWeight.W_700, size=11,
                         text_align=ft.TextAlign.CENTER),
                 ft.Image(
-                    src='assets/img/profile.png',
+                    src='https://i.postimg.cc/FK5dVLhH/profile.png',
                     width=40,
                     height=40,
                     offset=ft.Offset(0, -0.2)
@@ -141,7 +136,7 @@ def main(page: ft.Page):
 
     setting = ft.Container(  # кнопка настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='assets/img/settings.png',
+                            src='https://i.postimg.cc/wxf1bP9P/settings.png',
                             width=40,
                             height=40,
                         ),
@@ -157,7 +152,7 @@ def main(page: ft.Page):
 
     setting_out = ft.Container(  # кнопка выхода из настроек (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
                         ft.Image(
-                            src='assets/img/back.png',
+                            src='https://i.postimg.cc/Y0nL6DC5/back.png',
                             width=30,
                             height=30,
                         ),
@@ -173,7 +168,7 @@ def main(page: ft.Page):
 
     fly_out = ft.Container(  # кнопка выхода из меню полетов (ДОБАВЛЯЕТСЯ ЧЕРЕЗ APPEND)
         ft.Image(
-            src='assets/img/back.png',
+            src='https://i.postimg.cc/Y0nL6DC5/back.png',
             width=30,
             height=30,
         ),
@@ -196,7 +191,6 @@ def main(page: ft.Page):
         page.views.clear()
         prof = assets.menu.profile.Start()
         page.overlay.append(prof.bs); page.overlay.append(prof.ds); page.overlay.append(prof.es);
-
 
 
         page.views.append(
@@ -299,7 +293,6 @@ def main(page: ft.Page):
         page.views.pop()
         top_view = page.views[-1]
         page.go(top_view.route)
-
 
     page.on_route_change = route_change
     page.on_view_pop = view_pop

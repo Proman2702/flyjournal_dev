@@ -1,6 +1,5 @@
 flet
 requests
-pandas==2.0.3
+pandas
 airportsdata
 openpyxl
-numpy==1.24.4

@@ -160,7 +160,7 @@ class Start(ft.UserControl):
                     ),
                     ft.Container(
                         ft.Image(
-                            src='assets/img/nik.png',
+                            src='https://i.postimg.cc/Gh440Q2p/nik.png',
                             width=50,
                             height=50,
                         ),
@@ -228,7 +228,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='assets/img/blue_points.png',
+                                                    src='https://i.postimg.cc/Vkb0tRQh/blue-points.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -261,7 +261,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='assets/img/save.png',
+                                                    src='https://i.postimg.cc/cJRK9LJM/save.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -301,7 +301,7 @@ class Start(ft.UserControl):
                                                         size=13, width=140, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='assets/img/bin.png',
+                                                    src='https://i.postimg.cc/BQbKS3h4/bin.png',
                                                     width=30,
                                                     height=30,
                                                     offset=ft.Offset(0, -0.3)
@@ -334,7 +334,7 @@ class Start(ft.UserControl):
                                                         size=13, width=120, height=40, text_align=ft.TextAlign.CENTER,
                                                         weight=ft.FontWeight.W_800),
                                                 ft.Image(
-                                                    src='assets/img/add.png',
+                                                    src='https://i.postimg.cc/Y0qmmBMN/add.png',
                                                     width=45,
                                                     height=35,
                                                     offset=ft.Offset(0, -0.05)
@@ -426,7 +426,7 @@ class Start(ft.UserControl):
         self.ds.update()
 
     def close_ds(self, e):  # закрытие окна предупреждения об удалении профиля
-        profiles = pd.read_csv('profiles.csv', dtype=str)
+        profiles = pd.read_csv('assets/profiles.csv', dtype=str)
         profiles = profiles.drop(profiles.index[profiles['profile_name'] == self.deleting_prof][0]).reset_index(drop=True)
         profiles.to_csv("assets/profiles.csv", sep=',', index=False)
         self.ds.open = False
